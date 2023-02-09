@@ -14,9 +14,12 @@ public class PlayerController : MonoBehaviour
 
     float distanceToGround;
     bool isGrounded;
-    public float jumpForce = 5f;
-    public float walkSpeed = 5f;
+    public float jumpForce;
+    public float walkSpeed;
     Vector3 cameraRotation;
+
+    public GameObject projectile;
+    public Transform projectilePos;
 
     bool isWalking = false;
 
@@ -37,6 +40,8 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         playerAnimator = GetComponent<Animator>();
 
+        distanceToGround = GetComponent<Collider>().bounds.extents.y;
+
         cameraRotation = new Vector3(transform.rotation.x, transform.rotation.y, transform.rotation.z);
 
         Cursor.lockState = CursorLockMode.Locked;
@@ -55,6 +60,8 @@ public class PlayerController : MonoBehaviour
         
         transform.Translate(Vector3.forward * move.y * Time.deltaTime * walkSpeed, Space.Self);
         transform.Translate(Vector3.right * move.x * Time.deltaTime * walkSpeed, Space.Self);
+
+        isGrounded = Physics.Raycast(transform.position, -Vector3.up, distanceToGround);
     }
 
     void LateUpdate()
@@ -69,11 +76,20 @@ public class PlayerController : MonoBehaviour
 
     void Jump()
     {
-        
+        if (isGrounded)
+        {
+            rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
+        }
     }
 
     void Shoot()
     {
 
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawRay(transform.position, -Vector3.up * distanceToGround);
     }
 }
