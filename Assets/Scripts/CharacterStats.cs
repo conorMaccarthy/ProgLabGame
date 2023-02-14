@@ -20,14 +20,25 @@ public class CharacterStats : MonoBehaviour
         damage = Mathf.Clamp(damage, 0, int.MaxValue);
         currentHealth -= damage;
 
-        //if ()
-        //{
-            //OnHealthChanged(maxHealth, currentHealth);
-        //}
+        if (OnHealthChanged != null)
+        {
+            OnHealthChanged(maxHealth, currentHealth);
+        }
 
         if (currentHealth <= 0)
         {
             Die();
+        }
+    }
+
+    public virtual void Heal(int restored)
+    {
+        damage = Mathf.Clamp(restored, 0, int.MaxValue);
+        currentHealth += restored;
+
+        if (OnHealthChanged != null)
+        {
+            OnHealthChanged(maxHealth, currentHealth);
         }
     }
 

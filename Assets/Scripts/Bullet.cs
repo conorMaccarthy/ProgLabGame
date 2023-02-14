@@ -2,16 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Collectible : MonoBehaviour
+public class Bullet : MonoBehaviour
 {
-    public int healthRestored;
-
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
         {
-            GameObject.Find("Character").GetComponent<CharacterStats>().Heal(healthRestored);
-            Destroy(gameObject);
+            GameObject.Find("Character").GetComponent<CharacterStats>().TakeDamage(10);
         }
     }
 }
