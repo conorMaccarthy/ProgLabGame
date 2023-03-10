@@ -2,15 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Collectible : MonoBehaviour
+public class HealthPack : MonoBehaviour
 {
-    public int healthRestored;
+    Collectible healthPack;
+
+    void Awake()
+    {
+        healthPack = new Collectible("healthPack", 25, 0);
+    }
 
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
         {
-            GameObject.Find("Character").GetComponent<CharacterStats>().Heal(healthRestored);
+            healthPack.RestoreHealth();
             Destroy(gameObject);
         }
     }

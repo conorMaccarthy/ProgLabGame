@@ -33,8 +33,8 @@ public class CharacterStats : MonoBehaviour
 
     public virtual void Heal(int restored)
     {
-        damage = Mathf.Clamp(restored, 0, int.MaxValue);
         currentHealth += restored;
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
 
         if (OnHealthChanged != null)
         {
