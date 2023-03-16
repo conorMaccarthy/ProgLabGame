@@ -420,7 +420,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   difficulty: 0
-  enemyManager: {fileID: 1603632761}
+  enemyManager: {fileID: 1603632763}
 --- !u!114 &397752483
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -647,7 +647,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   difficulty: 1
-  enemyManager: {fileID: 1603632761}
+  enemyManager: {fileID: 1603632763}
 --- !u!114 &590189491
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1878,7 +1878,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   difficulty: 3
-  enemyManager: {fileID: 1603632761}
+  enemyManager: {fileID: 1603632763}
 --- !u!114 &1610022133
 MonoBehaviour:
   m_ObjectHideFlags: 0

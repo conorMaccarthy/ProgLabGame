@@ -1,23 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EnemyManager : MonoBehaviour
 {
     GameObject[] enemies;
     int _difficulty;
 
-    public void SetDifficulty(int difficulty)
+    public int Difficulty
     {
-        _difficulty = difficulty;
+        set { _difficulty = value; }
     }
     
-    public void CreateEnemyArray()
+    void CreateEnemyArray()
     {
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
     }
 
-    public void SetEnemyVisionSize()
+    void SetEnemyVisionSize()
     {
         switch (_difficulty)
         {
@@ -49,5 +50,24 @@ public class EnemyManager : MonoBehaviour
                 }
                 break;
         }
+    }
+
+    public void StartSetDifficulty()
+    {
+        StartCoroutine(SetDifficulty());
+    }
+
+    IEnumerator SetDifficulty()
+    {
+        yield return new WaitUntil(LevelSceneActive);
+        Debug.Log("Waited");
+        CreateEnemyArray();
+        SetEnemyVisionSize();
+        Debug.Log("Enemies set");
+    }
+
+    private bool LevelSceneActive()
+    {
+        return SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level");
     }
 }

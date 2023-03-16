@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class StartButton : MonoBehaviour
 {
     public DifficultyOptionsEnum difficulty;
-    public GameObject enemyManager;
+    public EnemyManager enemyManager;
     
     public enum DifficultyOptionsEnum
     {
@@ -17,14 +17,11 @@ public class StartButton : MonoBehaviour
 
     public void StartGame()
     {
-        enemyManager.GetComponent<EnemyManager>().SetDifficulty((int)difficulty);
-        DontDestroyOnLoad(enemyManager);
+        enemyManager.Difficulty = (int)difficulty;
+        Debug.Log(difficulty);
+        enemyManager.StartSetDifficulty();
+        DontDestroyOnLoad(enemyManager.gameObject);
         SceneManager.LoadScene("Level");
-    }
-
-    public void SetDifficulty()
-    {
-        //enemyManager.CreateEnemyArray();
-        //enemyManager.SetEnemyVisionSize();
+        Debug.Log("Scene loaded");
     }
 }
