@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IDataPersistance
 {
     PlayerAction inputAction;
     Vector2 move;
@@ -21,8 +21,6 @@ public class PlayerController : MonoBehaviour
     public GameObject projectile;
     public Transform projectilePos;
 
-    bool isWalking = false;
-
     void Awake()
     {
         inputAction = new PlayerAction();
@@ -34,8 +32,6 @@ public class PlayerController : MonoBehaviour
 
         inputAction.Player.Look.performed += cntxt => rotate = cntxt.ReadValue<Vector2>();
         inputAction.Player.Look.canceled += cntxt => rotate = Vector2.zero;
-
-        inputAction.Player.Shoot.performed += cntxt => Shoot();
 
         rb = GetComponent<Rigidbody>();
         playerAnimator = GetComponent<Animator>();
@@ -82,14 +78,19 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void Shoot()
-    {
-
-    }
-
     void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawRay(transform.position, -Vector3.up * distanceToGround);
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        data.position = transform.position;
+    }
+
+    public void LoadData(GameData data)
+    {
+        transform.position = data.position;
     }
 }

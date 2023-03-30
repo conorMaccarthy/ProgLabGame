@@ -10,9 +10,9 @@ public class CharacterStats : MonoBehaviour
 
     public event System.Action<int, int> OnHealthChanged;
 
-    void Awake()
+    public int CurrentHealth
     {
-        currentHealth = maxHealth;
+        get { return currentHealth; }
     }
 
     public virtual void TakeDamage(int damage)
